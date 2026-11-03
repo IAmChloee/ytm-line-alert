@@ -37,7 +37,10 @@ export function quantity(data) {
 }
 
 export function shouldNotify(previous, current, force = false) {
-  return force || previous === null || (previous === 0 && current > 0);
+  const restocked = previous === 0 && current > 0;
+  const lastOne = previous !== 1 && current === 1;
+
+  return force || previous === null || restocked || lastOne;
 }
 
 async function jsonRequest(url, options) {
